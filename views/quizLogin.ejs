@@ -1,0 +1,50 @@
+<%- include('partials/header') %>
+<link rel="stylesheet" type="text/css" href="css/quizlogin.css" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+
+
+<div class="card">
+<article class="card-body">
+	<h4 class="card-title text-center mb-4 mt-1">Quiz Login</h4>
+	<hr class="form-signin">
+	<p class="text-success text-center">Enter details to take the quiz</p>
+	<form class="form-signin" action="/quizLogin" method="post">
+
+ 	<div class="form-group">
+
+    <div class="input-group">
+		<div class="input-group-prepend">
+		    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+		 </div>
+		<input name="studentName" class="form-control " placeholder="Enter Your Name" type="text">
+	</div> <!-- input-group.// -->
+
+	</div> <!-- form-group// -->
+
+  <center>
+
+  </center>
+	<div class="form-group">
+	<div class="input-group">
+		<div class="input-group-prepend">
+		    <span class="input-group-text"> <i class="fa fa-email"></i> </span>
+		 </div>
+	    <input name="studentEmail" class="form-control" placeholder="Enter Your Mail" type="email">
+	</div>
+	</div>
+
+	<div class="form-group">
+	<button type="submit" class="btn btn-primary btn-block"> Start Quiz  </button>
+	</div>
+
+	
+
+
+
+	<!-- form-group// -->
+
+	</form>
+</article>
+</div>
+
+<%- include('partials/footer') %>

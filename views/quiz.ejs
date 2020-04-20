@@ -1,0 +1,61 @@
+<%- include('partials/header') %>
+
+<div class="container">
+
+  <div class="card">
+<div class="card-header">
+
+  <%= quiz[qcount].question %>
+
+</div>
+<div class="card-body">
+
+<form class="" action="/quiz" method="post">
+
+
+
+  <div class="custom-control custom-radio custom-control-inline">
+    <input type="radio" id="customRadioInline1" name="option" class="custom-control-input" value=1>
+    <label class="custom-control-label" for="customRadioInline1"><%= quiz[qcount].options[0] %></label>
+  </div>
+  <div class="custom-control custom-radio custom-control-inline">
+    <input type="radio" id="customRadioInline2" name="option" class="custom-control-input" value=2>
+    <label class="custom-control-label" for="customRadioInline2"><%= quiz[qcount].options[1] %></label>
+  </div>
+  <div class="custom-control custom-radio custom-control-inline">
+    <input type="radio" id="customRadioInline3" name="option" class="custom-control-input" value=3>
+    <label class="custom-control-label" for="customRadioInline3"><%= quiz[qcount].options[2] %></label>
+  </div>
+  <div class="custom-control custom-radio custom-control-inline">
+    <input type="radio" id="customRadioInline4" name="option" class="custom-control-input" value=4>
+    <label class="custom-control-label" for="customRadioInline4"><%= quiz[qcount].options[3] %></label>
+  </div>
+
+  <div class="row">
+
+
+      <% if(qcount===0){var prevbtnState="disabled"}%>
+      <% if(qcount<4){var submitbtnState="disabled"}%>
+      <% if(qcount===4){var nextbtnState="disabled"}%>
+      <button type="submit" class="col-4 btn btn-dark" id="prev" name="butt" <%=prevbtnState %> value=1 >Previous</button>
+      <button type="submit" class="col-4 btn btn-dark" id="submit" name="butt" <%=submitbtnState %> value=2 >Submit</button>
+      <button type="submit" class="col-4 btn btn-dark" id="next" name="butt" <%=nextbtnState %> value=3 >Next</button>
+
+
+      <input type="hidden" name="questionNo" value=<%=qcount %>>
+
+      <input type="hidden" name="userAnsArray" value= <%=userAnswers %> >
+      
+
+
+    </div>
+</form>
+</div>
+</div>
+
+
+
+
+</div>
+
+<%- include('partials/footer') %>
