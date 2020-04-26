@@ -22,7 +22,7 @@ class Popup extends React.Component {
             this.setState({
                 time: 'end',
                 title: 'Congratulations!',
-                buttonText: 'Restart'
+                buttonText: 'Return to Homepage'
             });
 
             this.props.startQuiz();
