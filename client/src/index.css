@@ -1,0 +1,16 @@
+body {
+  margin: 0;
+  
+    background-color: #e4e4e4;
+	  font-family: Open Sans;
+    margin-top: 10%;
+    margin-bottom: 50px;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}

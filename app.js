@@ -9,6 +9,13 @@ const fs = require('fs');
 const flash = require('connect-flash');
 const app = express();
 
+
+// Serve static files from the React frontend app
+
+
+app.use("/react-quiz",express.static(path.join(__dirname, 'client/build')));
+
+
 app.use(cookieParser());
 
 app.use(session({
@@ -58,14 +65,35 @@ const QuizStat = mongoose.model(
 var readQuiz = fs.readFileSync("public/quiz/quiz1.json", 'utf8');
 var quiz = JSON.parse(readQuiz);
 
-app.get("/", function(req, res) {
-  res.render("home");
-});
 
-app.post("/", function(req, res) {
+// app.get('/reactQuiz', (req, res) => {
+//
+// });
+
+app.post("/submitScore",function(req,res){
+  res.redirect("/");
+})
+
+
+app.post("/learning",function(req,res){
   console.log(req.body.DayNo);
   req.flash('DayNo', req.body.DayNo);
   res.redirect("/quizLogin");
+});
+
+
+app.get("/", function(req, res) {
+  console.log("yo");
+  res.render("home2");
+});
+
+app.get("/react-quiz",(req,res)=>{
+  res.sendFile(path.join(__dirname + '/client/build/index.html'));
+});
+
+app.post("/", function(req, res) {
+  res.render("learnings");
+
 });
 
 app.get("/quizLogin", function(req, res) {
@@ -76,6 +104,7 @@ app.post("/quizLogin", async (req, res) => {
   var userName = req.body.studentName;
   var userEmail = req.body.studentEmail;
   var userId = "";
+  var nameUser="";
   var flag = 0;
   User.findOne({
       name: userName,
@@ -91,11 +120,14 @@ app.post("/quizLogin", async (req, res) => {
 
         let saveUser = await newuser.save();
         userId = saveUser.id;
+        nameUser=saveUser.name;
       } else {
         console.log("user found");
         userId = result.id;
+        nameUser=result.name;
       }
       req.flash('userId', userId);
+      req.flash('nameUser',nameUser);
 
       QuizStat.findOne({
           userId: userId
@@ -120,11 +152,12 @@ app.post("/quizLogin", async (req, res) => {
 
           if (!err) {
             var userAnswers = [0, 0, 0, 0, 0];
-            res.render("quiz", {
-              quiz: quiz,
-              qcount: 0,
-              userAnswers: JSON.stringify(userAnswers)
-            });
+            res.redirect("/react-quiz");
+            // res.render("quiz", {
+            //   quiz: quiz,
+            //   qcount: 0,
+            //   userAnswers: JSON.stringify(userAnswers)
+            // });
           }
         }
 
@@ -132,6 +165,12 @@ app.post("/quizLogin", async (req, res) => {
 
     });
 
+});
+
+app.get("/quizDay",function(req,res){
+  const day={dayNo:"day1"};
+  req.flash('DayNo',day.dayNo);
+  res.json(day);
 });
 
 app.post("/quiz", function(req, res) {
@@ -182,6 +221,8 @@ app.get("/submit", function(req, res) {
   var dayNo = req.flash('DayNo');
   var userId = req.flash('userId');
   var score = req.flash('score');
+  var nameUser=req.flash('nameUser');
+
 
   var query = {};
   query[dayNo[0]] = score[0];
@@ -197,15 +238,16 @@ app.get("/submit", function(req, res) {
 
   });
   res.render("quizcomplete", {
-    userId: userId[0],
+    nameUser: nameUser[0],
     score: score[0]
   });
 });
 
-let port=process.env.PORT;
+// let port=process.env.PORT;
+let port="";
 if(port== null ||port==""){
-  port=3000;
+  port=5000;
 }
-app.listen(port, function() {
+app.listen(5000, function() {
   console.log("Server started ");
 });

@@ -12,4 +12,9 @@
     padding: 15px;
     margin: 0 auto;
   }
+
+}
+html,
+body {
+  height: 100%
 }
