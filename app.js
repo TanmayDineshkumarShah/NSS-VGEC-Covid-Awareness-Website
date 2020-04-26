@@ -244,7 +244,7 @@ app.get("/submit", function(req, res) {
 });
 
 let port=process.env.PORT;
-let port="";
+
 if(port== null ||port==""){
   port=5000;
 }
