@@ -27,8 +27,14 @@ class Popup extends React.Component {
 
             this.props.startQuiz();
         } else {
-          axios.post(`/submitScore`,"hi")
-          window.location.href="/"
+        
+         const res=  fetch(`/submitScore/${this.props.score}`);
+        //   .then((res)=>{
+        //       console.log(res);
+        //       console.log('data posted');
+        window.location.href="/"
+         
+         
 
     // restart the application
         }

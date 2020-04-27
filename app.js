@@ -8,6 +8,7 @@ const cookieParser = require("cookie-parser");
 const fs = require('fs');
 const flash = require('connect-flash');
 const app = express();
+const cors=require('cors');
 
 
 // Serve static files from the React frontend app
@@ -70,9 +71,7 @@ var quiz = JSON.parse(readQuiz);
 //
 // });
 
-app.post("/submitScore",function(req,res){
-  res.redirect("/");
-})
+
 
 
 app.post("/learning",function(req,res){
@@ -167,8 +166,41 @@ app.post("/quizLogin", async (req, res) => {
 
 });
 
+app.get("/submitScore/:score",cors(), async (req,res,next)=>{
+  try{var score=req.params.score;
+  console.log(score);
+  var dayNo = req.flash('DayNo');
+  var userId = req.flash('userId');
+  
+
+
+
+  var query = {};
+  query[dayNo[0]] = score;
+
+  QuizStat.updateOne({
+    userId: userId[0]
+  }, query, function(err, res) {
+    if (err) {
+      console.log(err);
+    } else {
+
+    }
+
+  });
+  res.json({recieved:true});
+  }
+  catch(err){
+    console.log(err);
+  }
+});
+
 app.get("/quizDay",function(req,res){
+  
   const day={dayNo:"day1"};
+  const array=req.flash('dayNo');
+
+  day.dayNo=array[0];
   req.flash('DayNo',day.dayNo);
   res.json(day);
 });

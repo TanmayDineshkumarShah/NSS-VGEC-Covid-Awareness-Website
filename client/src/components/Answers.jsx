@@ -17,6 +17,7 @@ class Answers extends React.Component {
         if(!isAnswered) {
             let elem = e.currentTarget;
             let { correct, increaseScore } = this.props;
+            console.log(correct);
             let answer = Number(elem.dataset.id);
             let updatedClassNames = this.state.classNames;
 

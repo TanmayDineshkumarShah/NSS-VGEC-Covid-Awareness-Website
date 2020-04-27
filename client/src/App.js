@@ -2,29 +2,27 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
+// import data from './data/data';
+import data from './data/quiz1'
 
-
-import data from './data/quiz1';
+// import data from './data/quiz1';
 import Answers from './components/Answers';
 import Popup from './components/Popup';
 //import Footer from 'Footer';
 
-class App extends React.Component {
 
+var quizNo=0;
+class App extends React.Component {
+    
 
     constructor(props) {
 
         super(props);
 
-       //  axios.get(`/quizDay`)
-       // .then(async res => {
-       //   const persons = res.data;
-       //   if(persons.dayNo==="day1"){
-       //     this.fetchQuiz()
-       //   }
-       // })
+       
 
         this.state = {
+            apiresp:false,
             nr: 0,
             total: 5,
             showButton: false,
@@ -49,17 +47,48 @@ class App extends React.Component {
     // }
 
     pushData(nr) {
+        // axios.get(`/quizDay`)
+        // .then(async res => {
+        //   const persons = res.data;
+        //   if(persons.dayNo==="day1"){
+        //     quizNo=1;
+        //     console.log(quizNo);
+        //   }
+        // });
         this.setState({
-            question: data[nr].question,
-            answers: [data[nr].answers[0], data[nr].answers[1], data[nr].answers[2], data[nr].answers[3] ],
-            correct: data[nr].correct,
+            question: data[quizNo][nr].question,
+            answers: [data[quizNo][nr].answers[0], data[quizNo][nr].answers[1], data[quizNo][nr].answers[2], data[quizNo][nr].answers[3] ],
+            correct: data[quizNo][nr].correct,
             nr: this.state.nr + 1
         });
+    
+        
+        
     }
 
     componentWillMount() {
+        
         let { nr } = this.state;
+        
         this.pushData(nr);
+        
+        
+    }
+    componentDidMount(){
+        axios.get(`/quizDay`)
+        .then(async res => {
+          const persons = res.data;
+          console.log(persons);
+          quizNo=Number(persons.dayNo.charAt(3))-1;
+        //   if(persons.dayNo==="day1"){
+        //     quizNo=1;
+        //     console.log(quizNo);
+        //   }
+        });
+            
+        
+        
+        
     }
 
     nextQuestion() {
@@ -100,28 +129,33 @@ class App extends React.Component {
     }
 
     render() {
-        let { nr, total, question, answers, correct, showButton, questionAnswered, displayPopup, score} = this.state;
-
-        return (
-            <div className="container">
-
-                <Popup style={{display: displayPopup}} score={score} total={total} startQuiz={this.handleStartQuiz}/>
-
-                <div className="row">
-                    <div className="col-lg-10 col-lg-offset-1">
-                        <div id="question">
-                            <h4>Question {nr}/{total}</h4>
-                            <p>{question}</p>
-                        </div>
-                        <Answers answers={answers} correct={correct} showButton={this.handleShowButton} isAnswered={questionAnswered} increaseScore={this.handleIncreaseScore}/>
-                        <div id="submit">
-                            {showButton ? <button className="fancy-btn" onClick={this.nextQuestion} >{nr===total ? 'Finish quiz' : 'Next question'}</button> : null}
+        let { apiresp,nr, total, question, answers, correct, showButton, questionAnswered, displayPopup, score} = this.state;
+       
+        
+            return (
+                <div className="container">
+    
+                    <Popup style={{display: displayPopup}} score={score} total={total} startQuiz={this.handleStartQuiz}/>
+    
+                    <div className="row">
+                        <div className="col-lg-10 col-lg-offset-1">
+                            <div id="question">
+                                <h4>Question {nr}/{total}</h4>
+                                <p>{question}</p>
+                            </div>
+                            
+                            <Answers answers={answers} correct={correct} showButton={this.handleShowButton} isAnswered={questionAnswered} increaseScore={this.handleIncreaseScore}/>
+                            <div id="submit">
+                                {showButton ? <button className="fancy-btn" onClick={this.nextQuestion} >{nr===total ? 'Finish quiz' : 'Next question'}</button> : null}
+                            </div>
                         </div>
                     </div>
+    
                 </div>
+            );
 
-            </div>
-        );
+        
+        
     }
 };
 
