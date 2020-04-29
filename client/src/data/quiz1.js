@@ -42,27 +42,27 @@ export default[
   },
   {
 
-    question:" This is question 2.2",
-    answers:["option2.1","option2.2","option2.3","option2.4"],
+    question:" Can thermal scanners always detect an infected person who does not have any symptom like fever?",
+    answers:["Maybe","No","No, not always","Yes always"],
     correct:2
   },
   {
 
-    question:" This is question 3.3",
-    answers:["option3.1","option3.2","option3.3","option3.4"],
+    question:"Corona-virus what type of virus?",
+    answers:["Food-borne","Water-borne","Respiratory","Fire-borne"],
     correct:3
   },
   {
 
-  question:" This is question 4.4",
-    answers:["option4.1","option4.2","option4.3","option4.4"],
-    correct:4
+  question:"What is the minimum distance you should keep from people when you go out to buy grocery items",
+    answers:["0.5 metre","1 metre","2 metre","3 metre"],
+    correct:2
   },
   {
 
-    question:" This is question 5.5",
-    answers:["option5.1","option5.2","option5.3","option5.4"],
-    correct:1
+    question:"Which of the following are 100 % effective against corona-virus?",
+    answers:["Pneumonia pills","Anti fungal medicines","Antibiotics","None of the above"],
+    correct:4
   }
 
 ]

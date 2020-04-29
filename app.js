@@ -172,7 +172,7 @@ app.get("/submitScore/:score",cors(), async (req,res,next)=>{
   var dayNo = req.flash('DayNo');
   var userId = req.flash('userId');
   
-
+  console.log(dayNo);
 
 
   var query = {};
@@ -195,11 +195,11 @@ app.get("/submitScore/:score",cors(), async (req,res,next)=>{
   }
 });
 
-app.get("/quizDay",function(req,res){
+app.get("/quizDay",cors(), async (req,res,next)=>{
   
   const day={dayNo:"day1"};
-  const array=req.flash('dayNo');
-
+  const array=req.flash('DayNo');
+  console.log(array);
   day.dayNo=array[0];
   req.flash('DayNo',day.dayNo);
   res.json(day);
