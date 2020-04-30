@@ -65,6 +65,39 @@ export default[
     correct:4
   }
 
+],
+[
+  {
+
+    question:" Do you promise to maintain social distancing until the government has told to do so?",
+    answers:["Yes","Not Sure","Maybe","I don't know"],
+    correct:1
+  },
+  {
+
+    question:"Which of the following is the least economically affected industry among the following in the corona virus pandemic?",
+    answers:["Agriculture","Aviation","Telecommunication","Tourism"],
+    correct:3
+  },
+  {
+
+    question:"Which of the following is the most affected industry in India considering GDP contribution ratio",
+    answers:["Automobile","MSME","Telecommunication","Aviation"],
+    correct:2
+  },
+  {
+
+  question:"What are the reasons due to which MSME industries are most affected?",
+    answers:["Less demand in market","Unavailability of labour","They donot have enough capital","All of the above"],
+    correct:4
+  },
+  {
+
+    question:"Which policy of Indian Government was changed to protect the Indian companies during the corona pandemic?",
+    answers:["Foreign Direct Investment Policy","Education Policy","Agricultural Policy","None of the above"],
+    correct:1
+  }
+
 ]
 
 ]
