@@ -73,26 +73,20 @@ var quiz = JSON.parse(readQuiz);
 
 
 
-
-app.post("/learning",function(req,res){
-  console.log(req.body.DayNo);
-  req.flash('DayNo', req.body.DayNo);
-  res.redirect("/quizLogin");
-});
-
-
 app.get("/", function(req, res) {
-  console.log("yo");
+  console.log("Homepage");
   res.render("home2");
-});
-
-app.get("/react-quiz",(req,res)=>{
-  res.sendFile(path.join(__dirname + '/client/build/index.html'));
 });
 
 app.post("/", function(req, res) {
   res.render("learnings");
 
+});
+
+app.post("/learning",function(req,res){
+  console.log(req.body.DayNo);
+  req.flash('DayNo', req.body.DayNo);
+  res.redirect("/quizLogin");
 });
 
 app.get("/quizLogin", function(req, res) {
@@ -166,6 +160,17 @@ app.post("/quizLogin", async (req, res) => {
 
 });
 
+
+app.get("/react-quiz",(req,res)=>{
+  res.sendFile(path.join(__dirname + '/client/build/index.html'));
+});
+
+
+
+
+
+
+
 app.get("/submitScore/:score",cors(), async (req,res,next)=>{
   try{var score=req.params.score;
   console.log(score);
@@ -205,49 +210,49 @@ app.get("/quizDay",cors(), async (req,res,next)=>{
   res.json(day);
 });
 
-app.post("/quiz", function(req, res) {
-  var answers = [];
-  var questionNo = req.body.questionNo;
-  console.log(req.body.questionNo); //from hidden input
+// app.post("/quiz", function(req, res) {
+//   var answers = [];
+//   var questionNo = req.body.questionNo;
+//   console.log(req.body.questionNo); //from hidden input
 
-  var answers = JSON.parse(req.body.userAnsArray);
+//   var answers = JSON.parse(req.body.userAnsArray);
 
-  var userAns = req.body.option;
-  answers[questionNo] = userAns;
-  console.log(answers);
+//   var userAns = req.body.option;
+//   answers[questionNo] = userAns;
+//   console.log(answers);
 
-  //console.log(answers);
-  if (req.body.butt === "1") {
-    //prev
-    questionNo--;
-    res.render("quiz", {
-      quiz: quiz,
-      qcount: questionNo,
-      userAnswers: JSON.stringify(answers)
-    });
-  } else if (req.body.butt === "3") {
-    //next
-    questionNo++;
-    res.render("quiz", {
-      quiz: quiz,
-      qcount: questionNo,
-      userAnswers: JSON.stringify(answers)
-    });
-  } else {
-    var score = 0;
-    for (var i = 0; i < answers.length; i++) {
-      if (answers[i] == quiz[i].answer) {
-        score++;
-      }
-    }
-    req.flash('score', score);
-
-
-    res.redirect("/submit");
-  } //submit}
+//   //console.log(answers);
+//   if (req.body.butt === "1") {
+//     //prev
+//     questionNo--;
+//     res.render("quiz", {
+//       quiz: quiz,
+//       qcount: questionNo,
+//       userAnswers: JSON.stringify(answers)
+//     });
+//   } else if (req.body.butt === "3") {
+//     //next
+//     questionNo++;
+//     res.render("quiz", {
+//       quiz: quiz,
+//       qcount: questionNo,
+//       userAnswers: JSON.stringify(answers)
+//     });
+//   } else {
+//     var score = 0;
+//     for (var i = 0; i < answers.length; i++) {
+//       if (answers[i] == quiz[i].answer) {
+//         score++;
+//       }
+//     }
+//     req.flash('score', score);
 
 
-});
+//     res.redirect("/submit");
+//   } //submit}
+
+
+// });
 
 app.get("/submit", function(req, res) {
   var dayNo = req.flash('DayNo');
@@ -273,6 +278,12 @@ app.get("/submit", function(req, res) {
     nameUser: nameUser[0],
     score: score[0]
   });
+});
+
+app.get("/aboutDev",function(req,res){
+
+  
+
 });
 
 let port=process.env.PORT;
