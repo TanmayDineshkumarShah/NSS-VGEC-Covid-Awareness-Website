@@ -79,10 +79,12 @@ app.get("/", function(req, res) {
 });
 
 app.post("/", function(req, res) {
-  res.render("learnings");
+  res.redirect("/learning");
 
 });
-
+app.get("/learning",function(req,res){
+  res.render("learnings");
+})
 app.post("/learning",function(req,res){
   console.log(req.body.DayNo);
   req.flash('DayNo', req.body.DayNo);
