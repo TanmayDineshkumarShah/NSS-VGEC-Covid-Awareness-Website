@@ -67,12 +67,6 @@ var readQuiz = fs.readFileSync("public/quiz/quiz1.json", 'utf8');
 var quiz = JSON.parse(readQuiz);
 
 
-// app.get('/reactQuiz', (req, res) => {
-//
-// });
-
-
-
 app.get("/", function(req, res) {
   console.log("Homepage");
   res.render("home2");
@@ -148,11 +142,7 @@ app.post("/quizLogin", async (req, res) => {
           if (!err) {
             var userAnswers = [0, 0, 0, 0, 0];
             res.redirect("/react-quiz");
-            // res.render("quiz", {
-            //   quiz: quiz,
-            //   qcount: 0,
-            //   userAnswers: JSON.stringify(userAnswers)
-            // });
+
           }
         }
 
@@ -166,12 +156,6 @@ app.post("/quizLogin", async (req, res) => {
 app.get("/react-quiz",(req,res)=>{
   res.sendFile(path.join(__dirname + '/client/build/index.html'));
 });
-
-
-
-
-
-
 
 app.get("/submitScore/:score",cors(), async (req,res,next)=>{
   try{var score=req.params.score;
@@ -212,49 +196,7 @@ app.get("/quizDay",cors(), async (req,res,next)=>{
   res.json(day);
 });
 
-// app.post("/quiz", function(req, res) {
-//   var answers = [];
-//   var questionNo = req.body.questionNo;
-//   console.log(req.body.questionNo); //from hidden input
 
-//   var answers = JSON.parse(req.body.userAnsArray);
-
-//   var userAns = req.body.option;
-//   answers[questionNo] = userAns;
-//   console.log(answers);
-
-//   //console.log(answers);
-//   if (req.body.butt === "1") {
-//     //prev
-//     questionNo--;
-//     res.render("quiz", {
-//       quiz: quiz,
-//       qcount: questionNo,
-//       userAnswers: JSON.stringify(answers)
-//     });
-//   } else if (req.body.butt === "3") {
-//     //next
-//     questionNo++;
-//     res.render("quiz", {
-//       quiz: quiz,
-//       qcount: questionNo,
-//       userAnswers: JSON.stringify(answers)
-//     });
-//   } else {
-//     var score = 0;
-//     for (var i = 0; i < answers.length; i++) {
-//       if (answers[i] == quiz[i].answer) {
-//         score++;
-//       }
-//     }
-//     req.flash('score', score);
-
-
-//     res.redirect("/submit");
-//   } //submit}
-
-
-// });
 
 app.get("/submit", function(req, res) {
   var dayNo = req.flash('DayNo');
@@ -284,7 +226,7 @@ app.get("/submit", function(req, res) {
 
 app.get("/aboutDev",function(req,res){
 
-  
+  res.render("about-dev");
 
 });
 
